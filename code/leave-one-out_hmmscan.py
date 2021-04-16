@@ -1,4 +1,5 @@
 import sys, os, argparse, glob, time, re
+import numpy as np
 from sklearn.model_selection import LeaveOneOut
 
 # Pre-installed programs
@@ -102,6 +103,32 @@ def RUN_HMMSCAN():
                                 hmmList[i] + ' ' + testList[i] + " &"
 		os.system(hmmscan_cmd)
 
+def HMMSCAN_SUMMARY():
+	domtbloutList = []
+	for domtblout in glob.iglob("*.domtblout"):
+		domtbloutList.append(domtblout)
+		
+	evalues = []
+	for f in range(len(domtbloutList)):
+		open_domtblout = open(domtbloutList[f], 'r')
+		for line in open_domtblout:
+			line = line.rstrip('\n')
+			if not line.startswith('#'):
+				item = line.split()
+				evalue = float(item[11])
+				evalues.append(evalue)
+		open_domtblout.close()
+
+	avg_evalue = np.mean(evalues)
+	std_evalue = np.std(evalues)
+	med_evalue = np.median(evalues)
+
+	open_summary = open("hmmscan_summary.txt", 'w')
+	open_summary.write("avgerage of evalue: " + str(avg_evalue)+'\n')
+	open_summary.write("std. of evalue: "     + str(std_evalue)+'\n')
+	open_summary.write("median of evalue: "   + str(med_evalue)+'\n')
+	open_summary.close()
+
 def main():
 	arg_parser = argparse.ArgumentParser(description="Leave-one-out cross validation using hmmscan.")
 	arg_parser.add_argument("--fasta", dest="fasta", action="store", required=True, help="input FASTA file (only protein sequences)")
@@ -112,6 +139,7 @@ def main():
 	RUN_HMMBUILD()
 	RUN_HMMPRESS()
 	RUN_HMMSCAN()
+	HMMSCAN_SUMMARY()
 
 if __name__ == "__main__":
 	main()
