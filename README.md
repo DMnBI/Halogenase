@@ -24,7 +24,7 @@ $ python domtblout_filtering.py -i example/example_input.domtblout -o example/ex
 ```
 
 >## Leave-one-out cross-validation (LOOCV)
-* ###LOOCV
+* ### LOOCV
   - To perform the LOOCV, ```code/leave-one-out_hmmscan.py``` is used.
   - Input file of this code is in ```pHMM/Trp-FDH.fasta```.
   - Training data and test data are generated as many as the number of sequences in the input file, respectively.
