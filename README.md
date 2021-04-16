@@ -28,8 +28,8 @@ $ python domtblout_filtering.py -i example/example_input.domtblout -o example/ex
   - To perform the LOOCV, ```code/leave-one-out_hmmscan.py``` is used.
   - Input file of this code is in ```pHMM/Trp-FDH.fasta```.
   - Training data and test data are generated as many as the number of sequences in the input file, respectively.
-  - To build pHMMs of training data, multiple sequence alignment (MSA) are performed by Clustal Omega (v1.2.4).
-  - Using the results of MSA (.sto file), pHMM models were constructed by *hmmbuild* in HMMER3.0 package.
+  - To build pHMMs of training data, multiple sequence alignment (MSA) are performed by using Clustal Omega (v1.2.4).
+  - Using the results of MSA (.sto file), pHMM models were constructed by using *hmmbuild* in HMMER3.0 package.
   - The pHMM search with the pHMM or training data and test set is executed.
   - The pHMM search results are summarized in terms of evalue (avg. std., and median of evalue).
  
